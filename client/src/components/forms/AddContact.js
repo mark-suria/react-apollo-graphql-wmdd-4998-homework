@@ -3,11 +3,11 @@ import { Button, Form, Input } from 'antd'
 import { useEffect, useState } from 'react'
 
 import { v4 as uuidv4 } from 'uuid'
-import { ADD_CONTACT, GET_CONTACTS } from '../../queries'
+import { ADD_PERSON, GET_PEOPLE } from '../../queries'
 
 const AddContact = () => {
   const [id] = useState(uuidv4())
-  const [addContact] = useMutation(ADD_CONTACT)
+  const [addPerson] = useMutation(ADD_PERSON)
   const [form] = Form.useForm()
   const [, forcedUpdate] = useState()
 
@@ -18,7 +18,7 @@ const AddContact = () => {
   const onFinish = values => {
     const { firstName, lastName } = values
 
-    addContact({
+    addPerson({
       variables: {
         id,
         firstName,
@@ -27,19 +27,19 @@ const AddContact = () => {
       optimisticResponse: {
         __typename: 'Mutation',
         addContact: {
-          __type: 'Contact',
+          __type: 'Person',
           id,
           firstName,
           lastName
         }
       },
-      update: (proxy, { data: { addContact } }) => {
-        const data = proxy.readQuery({ query: GET_CONTACTS })
+      update: (proxy, { data: { addPerson } }) => {
+        const data = proxy.readQuery({ query: GET_PEOPLE })
         proxy.writeQuery({
-          query: GET_CONTACTS,
+          query: GET_PEOPLE,
           data: {
             ...data,
-            contacts: [...data.contacts, addContact]
+            people: [...data.people, addPerson]
           }
         })
       }
