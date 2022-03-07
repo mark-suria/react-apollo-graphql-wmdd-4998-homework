@@ -32,11 +32,11 @@ const AddCar = () => {
         addCar: {
           __type: 'Car',
           id,
-        year,
-        make,
-        model,
-        price,
-        personId
+          year,
+          make,
+          model,
+          price,
+          personId
         }
       },
       update: (proxy, { data: { addCar } }) => {

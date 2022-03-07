@@ -4,11 +4,11 @@ import { useMutation } from '@apollo/client'
 
 import { UPDATE_PERSON } from '../../queries'
 
-const UpdateContact = props => {
+const UpdatePerson = props => {
     const [id] = useState(props.id)
     const [firstName, setFirstName] = useState(props.firstName)
     const [lastName, setLastName] = useState(props.lastName)
-    const [updateContact] = useMutation(UPDATE_PERSON)
+    const [updatePerson] = useMutation(UPDATE_PERSON)
 
     const [form] = Form.useForm()
     const [, forceUpdate] = useState()
@@ -20,7 +20,7 @@ const UpdateContact = props => {
     const onFinish = values => {
         const { firstName, lastName } = values
 
-        updateContact({
+        updatePerson({
             variables: {
                 id,
                 firstName,
@@ -28,7 +28,7 @@ const UpdateContact = props => {
             },
             optimisticResponse: {
                 __typename: 'Mutation',
-                updateContact: {
+                updatePerson: {
                     __typename: 'People',
                     id,
                     firstName,
@@ -95,7 +95,7 @@ const UpdateContact = props => {
                 form.getFieldsError().filter(({ errors }) => errors.length).length
               }
             >
-              Update Contact
+              Update Person
             </Button>
           )}
         </Form.Item>
@@ -104,4 +104,4 @@ const UpdateContact = props => {
     )
   }
 
-export default UpdateContact
+export default UpdatePerson

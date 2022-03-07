@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { ADD_PERSON, GET_PEOPLE } from '../../queries'
 
-const AddContact = () => {
+const AddPerson = () => {
   const [id] = useState(uuidv4())
   const [addPerson] = useMutation(ADD_PERSON)
   const [form] = Form.useForm()
@@ -26,7 +26,7 @@ const AddContact = () => {
       },
       optimisticResponse: {
         __typename: 'Mutation',
-        addContact: {
+        addPerson: {
           __type: 'Person',
           id,
           firstName,
@@ -77,7 +77,7 @@ const AddContact = () => {
               form.getFieldError().filter(({ errors }) => errors.length).length
             }
           >
-            Add Contact
+            Add Person
           </Button>
         )}
       </Form.Item>
@@ -85,4 +85,4 @@ const AddContact = () => {
   )
 }
 
-export default AddContact
+export default AddPerson

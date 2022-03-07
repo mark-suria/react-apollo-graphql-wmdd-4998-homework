@@ -120,9 +120,8 @@ const typeDefs = gql `
     addPerson(id: String!, firstName: String!, lastName: String!): Person
     updatePerson(id: String!, firstName: String, lastName: String): Person
     removePerson(id: String!): Person
-    
     addCar(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
-    updateCar(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
+    updateCar(id: String!, year: Int, make: String, model: String, price: Float, personId: String): Car
     removeCar(id: String!): Car
   }
 `

@@ -4,15 +4,15 @@ import { useMutation } from '@apollo/client'
 import { filter } from 'lodash'
 import { GET_PEOPLE, REMOVE_PERSON } from '../../queries'
 
-const RemoveContact = ({ id, firstName, lastName }) => {
-    const [removeContact] = useMutation(REMOVE_PERSON, {
-        update(proxy, { data: { removeContact } }) {
+const RemovePerson = ({ id, firstName, lastName }) => {
+    const [removePerson] = useMutation(REMOVE_PERSON, {
+        update(proxy, { data: { removePerson } }) {
             const { people } = proxy.readQuery({ query: GET_PEOPLE })
             proxy.writeQuery({
                 query: GET_PEOPLE,
                 data: {
                     people: filter(people, o => {
-                        return o.id !== removeContact.id
+                        return o.id !== removePerson.id
                     })
                 }
             })
@@ -20,16 +20,16 @@ const RemoveContact = ({ id, firstName, lastName }) => {
     })
 
     const handleButtonClick = () => {
-        let result = window.confirm('Are you sure you want to delete this contact?')
+        let result = window.confirm('Are you sure you want to delete this person?')
         if (result) {
-            removeContact({
+            removePerson({
                 variables: {
                     id
                 },
                 optimisticResponse: {
                     __typename: 'Mutation',
-                    removeContact: {
-                        __typename: 'Contact',
+                    removePerson: {
+                        __typename: 'People',
                         id,
                         firstName,
                         lastName
@@ -41,8 +41,9 @@ const RemoveContact = ({ id, firstName, lastName }) => {
     return <DeleteOutlined key = 'delete'
     onClick = { handleButtonClick }
     style = {
-        { color: 'red' } }
+        { color: 'red' }
+    }
     />
 }
 
-export default RemoveContact
+export default RemovePerson
